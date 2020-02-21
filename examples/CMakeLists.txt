@@ -70,3 +70,7 @@ foreach( name ${ALL_EXAMPLE_TARGETS} )
         target_compile_options( ${name}  PRIVATE /W4 /w44265 /WX )
     endif()
 endforeach()
+
+
+list(APPEND CATCH_WARNING_TARGETS ${ALL_EXAMPLE_TARGETS})
+set(CATCH_WARNING_TARGETS ${CATCH_WARNING_TARGETS} PARENT_SCOPE)
