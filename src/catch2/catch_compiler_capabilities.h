@@ -49,6 +49,8 @@
 #    define CATCH_INTERNAL_START_WARNINGS_SUPPRESSION _Pragma( "GCC diagnostic push" )
 #    define CATCH_INTERNAL_STOP_WARNINGS_SUPPRESSION  _Pragma( "GCC diagnostic pop" )
 
+// This only works on GCC 9+. so we have to also add a global suppression of Wparentheses
+// for older versions of GCC.
 #    define CATCH_INTERNAL_SUPPRESS_PARENTHESES_WARNINGS \
          _Pragma( "GCC diagnostic ignored \"-Wparentheses\"" )
 #endif
