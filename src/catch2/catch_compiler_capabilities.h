@@ -48,6 +48,9 @@
 #if defined(__GNUC__) && !defined(__clang__) && !defined(__ICC)
 #    define CATCH_INTERNAL_START_WARNINGS_SUPPRESSION _Pragma( "GCC diagnostic push" )
 #    define CATCH_INTERNAL_STOP_WARNINGS_SUPPRESSION  _Pragma( "GCC diagnostic pop" )
+
+#    define CATCH_INTERNAL_SUPPRESS_PARENTHESES_WARNINGS \
+         _Pragma( "GCC diagnostic ignored \"-Wparentheses\"" )
 #endif
 
 #if defined(__clang__)
