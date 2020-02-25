@@ -17,6 +17,15 @@
 
 #include <memory>
 
+// GCC 5 and older do not properly handle disabling unused-variable warning
+// with a _Pragma. This means that we have to leak the suppression to the
+// user code as well :-(
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ <= 5
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#endif
+
+
+
 namespace Catch {
 
 template<typename C>
@@ -153,7 +162,7 @@ struct AutoReg : NonCopyable {
         CATCH_INTERNAL_SUPPRESS_GLOBALS_WARNINGS \
         CATCH_INTERNAL_SUPPRESS_ZERO_VARIADIC_WARNINGS \
         CATCH_INTERNAL_SUPPRESS_UNUSED_TEMPLATE_WARNINGS \
-CATCH_INTERNAL_SUPPRESS_UNUSED_WARNINGS \
+        CATCH_INTERNAL_SUPPRESS_UNUSED_WARNINGS \
         INTERNAL_CATCH_DECLARE_SIG_TEST(TestFunc, INTERNAL_CATCH_REMOVE_PARENS(Signature));\
         namespace {\
         namespace INTERNAL_CATCH_MAKE_NAMESPACE(TestName){\
@@ -199,7 +208,7 @@ CATCH_INTERNAL_SUPPRESS_UNUSED_WARNINGS \
         CATCH_INTERNAL_SUPPRESS_GLOBALS_WARNINGS                      \
         CATCH_INTERNAL_SUPPRESS_ZERO_VARIADIC_WARNINGS                \
         CATCH_INTERNAL_SUPPRESS_UNUSED_TEMPLATE_WARNINGS       \
-CATCH_INTERNAL_SUPPRESS_UNUSED_WARNINGS \
+        CATCH_INTERNAL_SUPPRESS_UNUSED_WARNINGS \
         template<typename TestType> static void TestFuncName();       \
         namespace {\
         namespace INTERNAL_CATCH_MAKE_NAMESPACE(TestName) {                                     \
@@ -248,7 +257,7 @@ CATCH_INTERNAL_SUPPRESS_UNUSED_WARNINGS \
         CATCH_INTERNAL_START_WARNINGS_SUPPRESSION \
         CATCH_INTERNAL_SUPPRESS_GLOBALS_WARNINGS \
         CATCH_INTERNAL_SUPPRESS_UNUSED_TEMPLATE_WARNINGS \
-CATCH_INTERNAL_SUPPRESS_UNUSED_WARNINGS \
+        CATCH_INTERNAL_SUPPRESS_UNUSED_WARNINGS \
         template<typename TestType> static void TestFunc();       \
         namespace {\
         namespace INTERNAL_CATCH_MAKE_NAMESPACE(TestName){\
@@ -281,7 +290,7 @@ CATCH_INTERNAL_SUPPRESS_UNUSED_WARNINGS \
         CATCH_INTERNAL_SUPPRESS_GLOBALS_WARNINGS \
         CATCH_INTERNAL_SUPPRESS_ZERO_VARIADIC_WARNINGS \
         CATCH_INTERNAL_SUPPRESS_UNUSED_TEMPLATE_WARNINGS \
-CATCH_INTERNAL_SUPPRESS_UNUSED_WARNINGS \
+        CATCH_INTERNAL_SUPPRESS_UNUSED_WARNINGS \
         namespace {\
         namespace INTERNAL_CATCH_MAKE_NAMESPACE(TestName){ \
             INTERNAL_CATCH_TYPE_GEN\
